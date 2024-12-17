@@ -145,83 +145,93 @@ public class UserController {
 //		return "redirect:/user/offers";
 //    }
 //
-    @RequestMapping("/user/search")
-    public String showSearchForm(Model model) {
-    	SearchDto searchDto = new SearchDto();
-    	model.addAttribute("searchDto", searchDto);
 
-    	return "user/search_form";
-    }
-    
-    @RequestMapping("/user/search_offer")
-    public String search(@ModelAttribute("searchDto") SearchDto searchDto, Model model) {
-    	    	
-    	SearchStrategy searchStrategy = searchFactory.create(searchDto.getSelectedStrategy());
-    	List<BookDto> bookDtos = searchStrategy.search(searchDto, bookMapper);
-		
-    	model.addAttribute("books", bookDtos);
-    	return "user/search_results";
-    }
-    
-    @RequestMapping("/user/recom")
-    public String showRecommendationsForm(Model model) {
-    	RecommendationsDto recomDto = new RecommendationsDto();
-    	
-    	model.addAttribute("recomDto", recomDto);
-    	
-    	return "user/recommendation_form";
-    }
-    
-    @RequestMapping("/user/recommend_offers")
-    public String recommend(@ModelAttribute("recomDto") RecommendationsDto recomDto, Model model) {
-    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();	
-    	String username = authentication.getName();
-    	    	
-    	RecommendationsStrategy recommendationsStrategy = recommendationsFactory.create(recomDto.getSelectedStrategy());
-    	List<BookDto> bookDtos = recommendationsStrategy.recommend(username);
-		
-    	model.addAttribute("books", bookDtos);
-    	
-    	return "user/search_results";
-    }
-    
-    @RequestMapping("/user/request_book")
-    public String request(@RequestParam("selected_book_id") int bookId, Model model) {
-    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();	
-    	String username = authentication.getName();
-    	    	
-    	Optional<Book> requestedBook = bookMapper.findById(bookId);
-		Optional<UserProfile> userProfile = userProfileMapper.findById(username);
-		requestedBook.get().addRequestingUser(userProfile.get());
-		bookMapper.save(requestedBook.get());
-    	
-    	return "redirect:/user/dashboard";
-    }
-    
-    @RequestMapping("/user/requests")
-    public String showUserBookRequests(Model model) {
-    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();	
-    	String username = authentication.getName();
-    			
-    	Optional<UserProfile> userProfile = userProfileMapper.findById(username);
-		List <BookDto> requests = userProfile.get().buildBookRequestsDtos();
-    	model.addAttribute("requests", requests);
-    	
-    	return "/user/book_requests";
-    }
+	//done only in controller
+//	@RequestMapping("/user/search")
+//    public String showSearchForm(Model model) {
+//    	SearchDto searchDto = new SearchDto();
+//    	model.addAttribute("searchDto", searchDto);
+//
+//    	return "user/search_form";
+//    }
 
-    @RequestMapping("/user/book_requesting_users")
-    public String showRequestingUsersForBookOffer(@RequestParam("selected_offer_id") int bookId, Model model) {
-    	    	
-    	Optional<Book> book = bookMapper.findById(bookId);
-    	List<UserProfileDto> requestingUsers = book.get().getRequestingUserProfileDtos();
-    	
-    	model.addAttribute("requesting_users", requestingUsers);
-    	model.addAttribute("book_id", bookId);
-   
-    	return "/user/requesting_users";
-    }
+	//done
+		//    @RequestMapping("/user/search_offer")
+		//    public String search(@ModelAttribute("searchDto") SearchDto searchDto, Model model) {
+		//
+		//    	SearchStrategy searchStrategy = searchFactory.create(searchDto.getSelectedStrategy());
+		//    	List<BookDto> bookDtos = searchStrategy.search(searchDto, bookMapper);
+		//
+		//    	model.addAttribute("books", bookDtos);
+		//    	return "user/search_results";
+		//    }
+
+	//done only in controller
+//    @RequestMapping("/user/recom")
+//    public String showRecommendationsForm(Model model) {
+//    	RecommendationsDto recomDto = new RecommendationsDto();
+//
+//    	model.addAttribute("recomDto", recomDto);
+//
+//    	return "user/recommendation_form";
+//    }
+
+	//done
+//    @RequestMapping("/user/recommend_offers")
+//    public String recommend(@ModelAttribute("recomDto") RecommendationsDto recomDto, Model model) {
+//    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//    	String username = authentication.getName();
+//
+//    	RecommendationsStrategy recommendationsStrategy = recommendationsFactory.create(recomDto.getSelectedStrategy());
+//    	List<BookDto> bookDtos = recommendationsStrategy.recommend(username);
+//
+//    	model.addAttribute("books", bookDtos);
+//
+//    	return "user/search_results";
+//    }
     
+
+	//done
+//	@RequestMapping("/user/request_book")
+//    public String request(@RequestParam("selected_book_id") int bookId, Model model) {
+//    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//    	String username = authentication.getName();
+//
+//    	Optional<Book> requestedBook = bookMapper.findById(bookId);
+//		Optional<UserProfile> userProfile = userProfileMapper.findById(username);
+//		requestedBook.get().addRequestingUser(userProfile.get());
+//		bookMapper.save(requestedBook.get());
+//
+//    	return "redirect:/user/dashboard";
+//    }
+    
+    //done
+//	@RequestMapping("/user/requests")
+//    public String showUserBookRequests(Model model) {
+//    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//    	String username = authentication.getName();
+//
+//    	Optional<UserProfile> userProfile = userProfileMapper.findById(username);
+//		List <BookDto> requests = userProfile.get().buildBookRequestsDtos();
+//    	model.addAttribute("requests", requests);
+//
+//    	return "/user/book_requests";
+//    }
+
+	//done
+//    @RequestMapping("/user/book_requesting_users")
+//    public String showRequestingUsersForBookOffer(@RequestParam("selected_offer_id") int bookId, Model model) {
+//
+//    	Optional<Book> book = bookMapper.findById(bookId);
+//    	List<UserProfileDto> requestingUsers = book.get().getRequestingUserProfileDtos();
+//
+//    	model.addAttribute("requesting_users", requestingUsers);
+//    	model.addAttribute("book_id", bookId);
+//
+//    	return "/user/requesting_users";
+//    }
+
+
     @RequestMapping("/user/accept_request")
     public String acceptRequest(@RequestParam("selected_user") String username, @RequestParam("book_id") int bookId, Model model) {
     	/*

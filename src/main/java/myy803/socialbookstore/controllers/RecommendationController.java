@@ -1,4 +1,43 @@
-//package myy803.socialbookstore.controllers;
-//
-//public class RecommendationController {
-//}
+package myy803.socialbookstore.controllers;
+
+import myy803.socialbookstore.formsdata.BookDto;
+import myy803.socialbookstore.formsdata.RecommendationsDto;
+import myy803.socialbookstore.services.RecommendationService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
+
+@Controller
+public class RecommendationController {
+
+
+    @Autowired
+    private RecommendationService recommendationService;
+
+    @RequestMapping("/user/recom")
+    public String showRecommendationsForm(Model model) {
+        RecommendationsDto recomDto = new RecommendationsDto();
+
+        model.addAttribute("recomDto", recomDto);
+
+        return "user/recommendation_form";
+    }
+
+    @RequestMapping("/user/recommend_offers")
+    public String recommend(@ModelAttribute("recomDto") RecommendationsDto recomDto, Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
+        List<BookDto> bookDtos = recommendationService.recommendBooks(recomDto, username);
+
+        model.addAttribute("books", bookDtos);
+
+        return "user/search_results";
+    }
+}
