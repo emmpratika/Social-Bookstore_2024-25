@@ -64,92 +64,92 @@ public class UserController {
     	return "user/dashboard";
     }
     
-    @RequestMapping("/user/profile")
-    public String retrieveProfile(Model model){
-    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();	
-    	String username = authentication.getName();
-    	System.err.println("Logged use: " + username);
-    	
-    	List<BookCategory> categories = bookCategoryMapper.findAll();
-    	model.addAttribute("categories", categories);
-    	
-    	Optional<UserProfile> optUserProfile = userProfileMapper.findById(username);
-		UserProfile userProfile = null; 
-		UserProfileDto userProfileDto = null;
-		if(optUserProfile.isPresent()) {
-			userProfile = optUserProfile.get();
-			userProfileDto = userProfile.buildProfileDto();
-		} else {
-			userProfileDto = new UserProfileDto();
-			userProfileDto.setUsername(username);
-		}
-		
-    	model.addAttribute("profile", userProfileDto);
-    	
-    	return "user/profile";
-    }
+//    @RequestMapping("/user/profile")
+//    public String retrieveProfile(Model model){
+//    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//    	String username = authentication.getName();
+//    	System.err.println("Logged use: " + username);
+//
+//    	List<BookCategory> categories = bookCategoryMapper.findAll();
+//    	model.addAttribute("categories", categories);
+//
+//    	Optional<UserProfile> optUserProfile = userProfileMapper.findById(username);
+//		UserProfile userProfile = null;
+//		UserProfileDto userProfileDto = null;
+//		if(optUserProfile.isPresent()) {
+//			userProfile = optUserProfile.get();
+//			userProfileDto = userProfile.buildProfileDto();
+//		} else {
+//			userProfileDto = new UserProfileDto();
+//			userProfileDto.setUsername(username);
+//		}
+//
+//    	model.addAttribute("profile", userProfileDto);
+//
+//    	return "user/profile";
+//    }
     
-    @RequestMapping("/user/save_profile")
-    public String saveProfile(@ModelAttribute("profile") UserProfileDto userProfileDto, Model theModel) {
-    	System.err.println(userProfileDto.toString());
-    	    	
-    	Optional<UserProfile> optUserProfile = userProfileMapper.findById(userProfileDto.getUsername());
-		UserProfile userProfile = null;
-		if(optUserProfile.isPresent())	
-			userProfile = optUserProfile.get();
-		else
-			userProfile = new UserProfile();
-		
-		userProfileDto.buildUserProfile(userProfile, bookAuthorMapper, bookCategoriesMapper);
-		
-		userProfileMapper.save(userProfile);
-		
-    	
-    	return "user/dashboard";
-    }
+//    @RequestMapping("/user/save_profile")
+//    public String saveProfile(@ModelAttribute("profile") UserProfileDto userProfileDto, Model theModel) {
+//    	System.err.println(userProfileDto.toString());
+//
+//    	Optional<UserProfile> optUserProfile = userProfileMapper.findById(userProfileDto.getUsername());
+//		UserProfile userProfile = null;
+//		if(optUserProfile.isPresent())
+//			userProfile = optUserProfile.get();
+//		else
+//			userProfile = new UserProfile();
+//
+//		userProfileDto.buildUserProfile(userProfile, bookAuthorMapper, bookCategoriesMapper);
+//
+//		userProfileMapper.save(userProfile);
+//
+//
+//    	return "user/dashboard";
+//    }
     
-    @RequestMapping("/user/offers") 
-    public String listBookOffers(Model model) {
-    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();	
-    	String username = authentication.getName();
-    	    	
-    	Optional<UserProfile> optUserProfile = userProfileMapper.findById(username);
-		UserProfile userProfile = optUserProfile.get();
-		List<BookDto> bookOffersDtos = userProfile.buildBookOffersDtos();
-			
-    	model.addAttribute("offers", bookOffersDtos);
-    	
-    	return "user/offers";
-    }
+//    @RequestMapping("/user/offers")
+//    public String listBookOffers(Model model) {
+//    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//    	String username = authentication.getName();
+//
+//    	Optional<UserProfile> optUserProfile = userProfileMapper.findById(username);
+//		UserProfile userProfile = optUserProfile.get();
+//		List<BookDto> bookOffersDtos = userProfile.buildBookOffersDtos();
+//
+//    	model.addAttribute("offers", bookOffersDtos);
+//
+//    	return "user/offers";
+//    }
     
-    @RequestMapping("/user/show_offer_form") 
-    public String showOfferForm(Model model) {
-    	List<BookCategory> categories = bookCategoryMapper.findAll();
-    	model.addAttribute("categories", categories);
-    	model.addAttribute("offer", new BookDto());
-    	
-    	return "user/offer-form";
-    }
+//    @RequestMapping("/user/show_offer_form")
+//    public String showOfferForm(Model model) {
+//    	List<BookCategory> categories = bookCategoryMapper.findAll();
+//    	model.addAttribute("categories", categories);
+//    	model.addAttribute("offer", new BookDto());
+//
+//    	return "user/offer-form";
+//    }
     
-    @RequestMapping("/user/save_offer") 
-    public String saveOffer(@ModelAttribute("offer") BookDto bookOfferDto, Model model) {
-    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();	
-    	String username = authentication.getName();
-    	    	
-    	Optional<UserProfile> optUserProfile = userProfileMapper.findById(username);
-		UserProfile userProfile = optUserProfile.get();
-		userProfile.addBookOffer(bookOfferDto.buildBookOffer(bookAuthorMapper, bookCategoriesMapper));
-		
-		userProfileMapper.save(userProfile);
-		
-		return "redirect:/user/offers";
-    }
-    
+//    @RequestMapping("/user/save_offer")
+//    public String saveOffer(@ModelAttribute("offer") BookDto bookOfferDto, Model model) {
+//    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//    	String username = authentication.getName();
+//
+//    	Optional<UserProfile> optUserProfile = userProfileMapper.findById(username);
+//		UserProfile userProfile = optUserProfile.get();
+//		userProfile.addBookOffer(bookOfferDto.buildBookOffer(bookAuthorMapper, bookCategoriesMapper));
+//
+//		userProfileMapper.save(userProfile);
+//
+//		return "redirect:/user/offers";
+//    }
+//
     @RequestMapping("/user/search")
     public String showSearchForm(Model model) {
-    	SearchDto searchDto = new SearchDto(); 
+    	SearchDto searchDto = new SearchDto();
     	model.addAttribute("searchDto", searchDto);
-    	
+
     	return "user/search_form";
     }
     
@@ -234,10 +234,14 @@ public class UserController {
     
     @RequestMapping("/user/delete_book_offer")
     public String deleteBookOffer(@RequestParam("selected_offer_id") int bookId, Model model) {
-    	/*
-    	 * TODO - have to implement this user story
-    	 */
-    	System.err.println("Delete Book Offer for book id: " + bookId);
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+
+//		Optional<UserProfile> optUserProfile = userProfileMapper.findById(username);
+//		UserProfile userProfile = optUserProfile.get();
+//		userProfile.removeBookOfer(book);
+//		//
+//    	System.err.println("Delete Book Offer for book id: " + bookId);
 
     	return "redirect:/user/dashboard";
     }

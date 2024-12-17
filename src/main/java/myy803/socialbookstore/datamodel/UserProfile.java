@@ -199,5 +199,11 @@ public class UserProfile {
 	}
 
 	//***********************LINGO CODE**********************//
+
+//	public void removeBookOfer(Book bookOffer) {
+//		bookOffers.remove(bookOffer);
+//	}
+
+
 	
 }
