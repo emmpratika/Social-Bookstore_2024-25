@@ -12,6 +12,7 @@ public class RecommendationsDto {
 		recommendationStrategies.add("Favourite Categories"); 
 		recommendationStrategies.add("Favourite Authors");
 		recommendationStrategies.add("Both");
+		recommendationStrategies.add("Popular Books");
 	}
 
 	public ArrayList<String> getRecommendationStrategies() {

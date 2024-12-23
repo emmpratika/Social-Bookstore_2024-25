@@ -21,13 +21,26 @@
 	
 		<form action="#" th:action="@{/user/search_offer}"
 						 th:object="${searchDto}" method="POST">
-		
+
+			<!--Input for title-->
 			<input type="text" th:field="*{title}"
 					class="form-control mb-4 col-4" placeholder="Title">
-
+			<!--Input for favourite author-->
 			<input type="text" th:field="*{authors}"
 					class="form-control mb-4 col-4" placeholder="Authors">
-					
+<!--			&lt;!&ndash;Input for category&ndash;&gt;-->
+<!--			<input type="text" th:field="*{category}" class="form-control mb-4 col-4" placeholder="Category">-->
+			<!-- Static Dropdown for Categories -->
+			<label for="category">Favorite Book Category:</label>
+			<select th:field="*{category}" id="category" class="form-control mb-4 col-4">
+				<option value="">-- Select a Category --</option>
+				<option value="Fantasy">Fantasy</option>
+				<option value="Mystery">Mystery</option>
+				<option value="History">History</option>
+				<option value="Literature">Literature</option>
+				<option value="Other">Other</option>
+			</select>
+
     		<label for="html">Search Strategy</label>
     		<ul>
     			<li th:each="astrategy: ${searchDto.searchStrategies}">

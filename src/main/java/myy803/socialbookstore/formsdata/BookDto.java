@@ -18,17 +18,19 @@ public class BookDto {
 	private String category;
 	
 	private String searchStrategy;
+	private int popularity;
 	
 	public BookDto() {
 		super();
 	}
 
-	public BookDto(int offerId, String bookTitle, String bookAuthors, String bookCategory) {
+	public BookDto(int offerId, String bookTitle, String bookAuthors, String bookCategory, int popularity) {
 		super();
 		this.id = offerId;
 		this.title = bookTitle;
 		this.authors = bookAuthors;
 		this.category = bookCategory;
+		this.popularity = popularity;
 	}
 
 	public int getId() {
@@ -70,6 +72,14 @@ public class BookDto {
 
 	public void setSearchStrategy(String searchStrategy) {
 		this.searchStrategy = searchStrategy;
+	}
+
+	public int getPopularity() {
+		return popularity;
+	}
+
+	public void setPopularity(int popularity) {
+		this.popularity = popularity;
 	}
 
 	@Override

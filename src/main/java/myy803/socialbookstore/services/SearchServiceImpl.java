@@ -22,7 +22,8 @@ public class SearchServiceImpl implements SearchService {
     public List<BookDto> searchBooks(SearchDto searchDto){
 
         SearchStrategy searchStrategy = searchFactory.create(searchDto.getSelectedStrategy());
-        List<BookDto> bookDtos = searchStrategy.search(searchDto, bookMapper);
+        //List<BookDto> bookDtos = searchStrategy.search(searchDto, bookMapper);
+        List<BookDto> bookDtos = searchStrategy.search(searchDto, null);
         return bookDtos;
     }
 }

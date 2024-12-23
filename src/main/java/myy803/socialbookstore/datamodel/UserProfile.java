@@ -200,7 +200,7 @@ public class UserProfile {
 		return bookDtos;
 	}
 
-	//***********************LINGO CODE**********************//
+
 
 	public void removeBookOfer(Book bookOffer) {
 		bookOffers.remove(bookOffer);

@@ -33,7 +33,7 @@ public class BookRequestServiceImpl implements BookRequestService{
             requestedBook.get().addRequestingUser(userProfile.get());
         }
 
-
+        requestedBook.get().increasePopularity();
         bookMapper.save(requestedBook.get());
     }
 

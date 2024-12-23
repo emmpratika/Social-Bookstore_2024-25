@@ -6,6 +6,7 @@ public class SearchDto {
 	
 	private String title;
 	private String authors;
+	private String category;
 	private ArrayList<String> searchStrategies;
 	private String selectedStrategy;
 	
@@ -13,7 +14,8 @@ public class SearchDto {
 		super();
 		searchStrategies = new ArrayList<String>();
     	searchStrategies.add("Exact"); 
-    	searchStrategies.add("Approximate"); 
+    	searchStrategies.add("Approximate");
+		searchStrategies.add("Category"); //check again
 	}
 
 	
@@ -48,5 +50,13 @@ public class SearchDto {
 
 	public void setSelectedStrategy(String selectedStrategy) {
 		this.selectedStrategy = selectedStrategy;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
 	}
 }

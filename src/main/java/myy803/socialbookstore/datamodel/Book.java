@@ -53,15 +53,21 @@ public class Book {
             )
     )
 	private List<UserProfile> requestingUsers;
+
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="popularity")
+	private int popularity;
 	
 	public Book() {
 		super();
+		//this.popularity = 0;
 	}
 
 	public Book(String title) {
 		this.title = title;
 		bookAuthors = new ArrayList<BookAuthor>();
 		requestingUsers = new ArrayList<UserProfile>();
+		this.popularity = 0;
 	}
 
 	public int getOfferId() {
@@ -104,9 +110,16 @@ public class Book {
 		this.requestingUsers = requestingUsers;
 	}
 
+	public int getPopularity() {
+		return popularity;
+	}
+
+	public void setPopularity(int popularity) {
+		this.popularity = popularity;
+	}
 	public BookDto buildDto() {
 		String bookAuthorsList = buildAuthorsList();
-		return new BookDto(offerId, title, bookAuthorsList, category.getName());	
+		return new BookDto(offerId, title, bookAuthorsList, category.getName(), popularity);
 	}
 
 	public void addAuthor(BookAuthor bookAuthor) {
@@ -169,5 +182,9 @@ public class Book {
 		}else{
 			return false;
 		}
+	}
+
+	public void increasePopularity() {
+		popularity++;
 	}
 }

@@ -28,6 +28,11 @@
     				<input type="radio" th:field="*{selectedStrategy}" th:value="${astrategy}" />
     				<label th:for="${#ids.prev('selectedStrategy')}" th:text="${astrategy}"></label>
     			</li>
+
+				<li>
+					<input type="radio" th:field="*{selectedStrategy}" value="Popular Books" />
+					<label th:for="${#ids.prev('selectedStrategy')}">Popular Books</label>
+				</li>
     		</ul>
     		
 			<button type="submit" class="btn btn-info col-2">Recommend</button>

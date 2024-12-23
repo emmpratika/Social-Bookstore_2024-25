@@ -10,11 +10,26 @@ public class SearchFactory {
 	private ExactSearchStrategy exactSearchStrategy;
 	@Autowired
 	private ApproximateSearchStrategy approximateSearchStrategy;
+	@Autowired
+	private CategorySearchStrategy categorySearchStrategy;
 	
+//	public SearchStrategy create(String searchStrategy) {
+//		if(searchStrategy.equals("Exact"))
+//			return exactSearchStrategy;
+//		else
+//			return approximateSearchStrategy;
+//	}
+
 	public SearchStrategy create(String searchStrategy) {
-		if(searchStrategy.equals("Exact"))
-			return exactSearchStrategy;
-		else
-			return approximateSearchStrategy;
+		switch (searchStrategy) {
+			case "Exact":
+				return exactSearchStrategy;
+			case "Approximate":
+				return approximateSearchStrategy;
+			case "Category":
+				return categorySearchStrategy;
+			default:
+				throw new IllegalArgumentException("Unknown search strategy: " + searchStrategy);
+		}
 	}
 }

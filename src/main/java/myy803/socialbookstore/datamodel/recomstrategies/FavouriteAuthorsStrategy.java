@@ -10,18 +10,19 @@ import myy803.socialbookstore.formsdata.BookDto;
 import myy803.socialbookstore.mappers.UserProfileMapper;
 
 @Component
-public class FavouriteAuthorsStrategy implements RecommendationsStrategy {
+public class FavouriteAuthorsStrategy extends AbstractRecommendationStrategy {
 	
 	@Autowired
 	private UserProfileMapper userProfileMapper;
 
-	public List<BookDto> recommend(String username) {
-		UserProfile userProfile = userProfileMapper.findByUsername(username);
-		List<BookDto> bookDtos = retrieveRecommendedBooks(userProfile);
+//	public List<BookDto> recommend(String username) {
+//		UserProfile userProfile = userProfileMapper.findByUsername(username);
+//		List<BookDto> bookDtos = retrieveRecommendedBooks(userProfile);
+//
+//		return bookDtos;
+//	}
 	
-		return bookDtos;
-	}
-	
+	@Override
 	protected List<BookDto> retrieveRecommendedBooks(UserProfile userProfile) {
 		List<BookDto> bookDtos = userProfile.getBooksFromFavouriteAuthors();
 		return bookDtos;
