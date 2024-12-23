@@ -232,38 +232,38 @@ public class UserController {
 //    }
 
 
-    @RequestMapping("/user/accept_request")
-    public String acceptRequest(@RequestParam("selected_user") String username, @RequestParam("book_id") int bookId, Model model) {
-    	/*
-    	 * TODO - have to implement this user story
-    	 */
-    	System.err.println("Selected user: " + username + " for book id: " + bookId);
-    	
-    	return "redirect:/user/dashboard";
-    }
+//    @RequestMapping("/user/accept_request")
+//    public String acceptRequest(@RequestParam("selected_user") String username, @RequestParam("book_id") int bookId, Model model) {
+//    	/*
+//    	 * TODO - have to implement this user story
+//    	 */
+//    	System.err.println("Selected user: " + username + " for book id: " + bookId);
+//
+//    	return "redirect:/user/dashboard";
+//    }
     
-    @RequestMapping("/user/delete_book_offer")
-    public String deleteBookOffer(@RequestParam("selected_offer_id") int bookId, Model model) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String username = authentication.getName();
-
-//		Optional<UserProfile> optUserProfile = userProfileMapper.findById(username);
-//		UserProfile userProfile = optUserProfile.get();
-//		userProfile.removeBookOfer(book);
-//		//
-//    	System.err.println("Delete Book Offer for book id: " + bookId);
-
-    	return "redirect:/user/dashboard";
-    }
+//    @RequestMapping("/user/delete_book_offer")
+//    public String deleteBookOffer(@RequestParam("selected_offer_id") int bookId, Model model) {
+//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//		String username = authentication.getName();
+//
+////		Optional<UserProfile> optUserProfile = userProfileMapper.findById(username);
+////		UserProfile userProfile = optUserProfile.get();
+////		userProfile.removeBookOfer(book);
+////		//
+////    	System.err.println("Delete Book Offer for book id: " + bookId);
+//
+//    	return "redirect:/user/dashboard";
+//    }
     
-    @RequestMapping("/user/delete_book_request")
-    public String deleteBookRequest(@RequestParam("selected_request_id") int bookId, Model model) {
-    	/*
-    	 * TODO - have to implement this user story
-    	 */
-    	System.err.println("Delete Book Request for book id: " + bookId);
-
-    	return "redirect:/user/dashboard";
-    }
+//    @RequestMapping("/user/delete_book_request")
+//    public String deleteBookRequest(@RequestParam("selected_request_id") int bookId, Model model) {
+//    	/*
+//    	 * TODO - have to implement this user story
+//    	 */
+//    	System.err.println("Delete Book Request for book id: " + bookId);
+//
+//    	return "redirect:/user/dashboard";
+//    }
 
 }

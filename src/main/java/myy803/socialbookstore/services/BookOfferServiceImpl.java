@@ -60,11 +60,23 @@ public class BookOfferServiceImpl implements BookOfferService {
         return bookCategoryMapper.findAll();
     }
 
-//    public void removeBookOffer(int bookId, String username)  {
-//        Optional<UserProfile> optUserProfile = userProfileMapper.findById(username);
-//        UserProfile userProfile = optUserProfile.get();
-//        userProfile.removeBookOfer(bookMapper.findById(bookId));
-//        userProfileMapper.save(userProfile);
-//
-//    }
+    public void removeBookOffer(int bookId, String username)  {
+        //Retrieve User Profile
+        Optional<UserProfile> optUserProfile = userProfileMapper.findById(username);
+        if (optUserProfile.isEmpty()) {
+            throw new RuntimeException("User profile not found");
+        }
+        UserProfile userProfile = optUserProfile.get();
+
+        //Retrieve Book
+        Optional<Book> optSelectedBook = bookMapper.findById(bookId);
+        if (optSelectedBook.isEmpty()) {
+            throw new RuntimeException("Book not found");
+        }
+        Book selectedBook = optSelectedBook.get();
+
+        userProfile.removeBookOfer(selectedBook);
+        userProfileMapper.save(userProfile);
+        System.out.println(userProfile.getBookOffers());
+    }
 }

@@ -2,6 +2,8 @@ package myy803.socialbookstore.datamodel;
  
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 import jakarta.persistence.*;
 import myy803.socialbookstore.formsdata.BookDto;
 import myy803.socialbookstore.formsdata.UserProfileDto;
@@ -46,7 +48,7 @@ public class UserProfile {
 	private List<BookCategory> favouriteBookCategories;
 
 	@OneToMany(cascade = CascadeType.ALL, 
-			fetch = FetchType.LAZY)
+			fetch = FetchType.LAZY, orphanRemoval = true)
 	@JoinColumn(name = "profile_username")
 	private List<Book> bookOffers;
 	
@@ -200,9 +202,9 @@ public class UserProfile {
 
 	//***********************LINGO CODE**********************//
 
-//	public void removeBookOfer(Book bookOffer) {
-//		bookOffers.remove(bookOffer);
-//	}
+	public void removeBookOfer(Book bookOffer) {
+		bookOffers.remove(bookOffer);
+	}
 
 
 	

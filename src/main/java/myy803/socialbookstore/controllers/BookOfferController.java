@@ -21,7 +21,7 @@ import java.util.List;
 public class BookOfferController {
 
     @Autowired
-    private BookOfferService bookOfferService; //to change
+    private BookOfferService bookOfferService;
 
     @Autowired
     private BookCategoryMapper bookCategoryMapper;
@@ -59,17 +59,18 @@ public class BookOfferController {
         return "redirect:/user/offers";
     }
 
-//    @RequestMapping("/user/delete_book_offer")
-//    public String deleteBookOffer(@RequestParam("selected_offer_id") int bookId, Model model) {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        String username = authentication.getName();
-//
-//        bookOfferService.removeBookOffer(bookId, username);
-//        System.err.println("Delete Book Offer for book id: " + bookId);
-//
-//        return "redirect:/user/dashboard";
-//        //maybe return to user/ipolipes offers
-//    }
+    @RequestMapping("/user/delete_book_offer")
+    public String deleteBookOffer(@RequestParam("selected_offer_id") int bookId, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
+        bookOfferService.removeBookOffer(bookId, username);
+        System.err.println("Delete Book Offer for book id: " + bookId);
+
+        //return "redirect:/user/dashboard";
+        return "redirect:/user/offers";
+        //maybe return to user/ipolipes offers
+    }
 
 
 }

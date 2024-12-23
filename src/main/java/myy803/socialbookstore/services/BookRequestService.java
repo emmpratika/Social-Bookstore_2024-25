@@ -11,4 +11,6 @@ public interface BookRequestService {
     public void requestBook(int bookId, String username);
     public List<BookDto> getUserBookRequests(String username);
     public List<UserProfileDto> getPendingRequests(int bookId);
+    public void removeBookRequest(int bookId, String username);
+    public void acceptBookRequest(int bookId, String requesterUsername, String giverUsername);
 }

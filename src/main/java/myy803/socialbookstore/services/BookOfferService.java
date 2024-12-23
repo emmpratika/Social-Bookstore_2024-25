@@ -10,6 +10,6 @@ import java.util.List;
 public interface BookOfferService {
     public List<BookDto> retrieveBookOffers(String username);
     public void saveBookOffer(BookDto bookDto, String username);
-    //public void removeBookOffer(int bookId, String username);
     public List<BookCategory> getCategories();
+    public void removeBookOffer(int bookId, String username);
 }

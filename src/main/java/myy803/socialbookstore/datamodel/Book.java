@@ -158,4 +158,16 @@ public class Book {
 		
 		return requestingUserProfileDtos;
 	}
+
+	public void removeRequestingUser(UserProfile userProfile) {
+		requestingUsers.remove(userProfile);
+	}
+
+	public boolean hasThisUserProfile(UserProfile userProfile) {
+		if (requestingUsers.contains(userProfile)) {
+			return true;
+		}else{
+			return false;
+		}
+	}
 }
